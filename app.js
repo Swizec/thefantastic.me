@@ -6,6 +6,7 @@
 var express = require('express');
 var twitter = require('twitter');
 var redis = require('redis').createClient();
+var _ = require('underscore');
 
 var app = module.exports = express.createServer();
 
@@ -48,9 +49,29 @@ app.get('/', function(req, res){
 app.post('/bio', function(req, res) {
     var id = (new Date).getTime();
 
-    redis.zadd('bios', id, req.body.text);
+    redis.multi()
+        .zadd('bios', id, id)
+        .set(id, req.body.text)
+        .exec(function (err) {
+            res.send('');
+            //res.send({id: id});
+        });
+});
 
-    res.send({id: id});
+app.get('/bios', function (req, res) {
+    redis.zrange('bios', 0, -1, function (err, ids) {
+        redis.mget(ids, function (err, texts) {
+            if (texts) {
+                res.send(_.map(_.zip(ids, texts),
+                               function (bio) {
+                                   return {id: bio[0],
+                                           text: bio[1]};
+                               }));
+            }else{
+                res.send([]);
+            }
+        });
+    });
 });
 
 var users = [];

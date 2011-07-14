@@ -42,9 +42,12 @@ $(function () {
         },
 
         initialize: function () {
-            _.bindAll(this, "add_bio", "new_bio");
+            _.bindAll(this, "add_bio", "new_bio", "redraw");
 
             Bios.bind("add", this.add_bio);
+            Bios.bind("reset", this.redraw);
+
+            Bios.fetch();
         },
 
         add_bio: function (bio) {
@@ -59,6 +62,11 @@ $(function () {
             bio.save();
 
             Bios.add(bio);
+        },
+
+        redraw: function() {
+            this.$("ul").empty();
+            Bios.each(this.add_bio);
         }
     });
 
