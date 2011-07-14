@@ -1,10 +1,2 @@
 
-Usage of this boilerplate:
-
-clone the code
-
-change origin
-
-change this readme
-
-push to new main repo
+The project's manifesto: http://swizec.com/blog/your-twitter-bio-sucks/swizec/1914
