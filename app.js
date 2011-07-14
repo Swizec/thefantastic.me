@@ -5,6 +5,7 @@
 
 var express = require('express');
 var twitter = require('twitter');
+var redis = require('redis').createClient();
 
 var app = module.exports = express.createServer();
 
@@ -42,8 +43,14 @@ app.get('/', function(req, res){
   res.render('index', {
     title: 'Express'
   });
+});
 
+app.post('/bio', function(req, res) {
+    var id = (new Date).getTime();
 
+    redis.zadd('bios', id, req.body.text);
+
+    res.send({id: id});
 });
 
 var users = [];

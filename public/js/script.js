@@ -2,7 +2,9 @@ $(function(){
 });
 
 $(function () {
-    var Bio = window.Bio = Backbone.Model.extend({});
+    var Bio = window.Bio = Backbone.Model.extend({
+        url: '/bio'
+    });
 
     var BioList = window.BioList = Backbone.Collection.extend({
         model: Bio,
@@ -53,7 +55,10 @@ $(function () {
         new_bio: function (event) {
             event.preventDefault();
 
-            Bios.add({text: this.$("form input[type='text']").val()});
+            var bio = new Bio({text: this.$("form input[type='text']").val()});
+            bio.save();
+
+            Bios.add(bio);
         }
     });
 
