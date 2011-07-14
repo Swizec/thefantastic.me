@@ -1,15 +1,4 @@
 $(function(){
-    now.ready(function(){
-        now.initiate(function (clientId) {
-            console.log("I am client "+clientId);
-
-            now.get_bio(function (bio) {
-                console.log("Your bio: "+bio);
-
-                Bios.add({text: bio});
-            });
-        });
-    });
 });
 
 $(function () {
@@ -46,8 +35,12 @@ $(function () {
     var AppView = window.AppView = Backbone.View.extend({
         el: $("#main"),
 
+        events: {
+            "submit form": "new_bio"
+        },
+
         initialize: function () {
-            _.bindAll(this, "add_bio");
+            _.bindAll(this, "add_bio", "new_bio");
 
             Bios.bind("add", this.add_bio);
         },
@@ -55,6 +48,12 @@ $(function () {
         add_bio: function (bio) {
             var view = new BioView({model: bio});
             this.$("ul").append(view.render());
+        },
+
+        new_bio: function (event) {
+            event.preventDefault();
+
+            Bios.add({text: this.$("form input[type='text']").val()});
         }
     });
 

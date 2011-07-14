@@ -4,7 +4,6 @@
  */
 
 var express = require('express');
-var nowjs = require('now');
 var twitter = require('twitter');
 
 var app = module.exports = express.createServer();
@@ -47,22 +46,7 @@ app.get('/', function(req, res){
 
 });
 
-var everyone = nowjs.initialize(app);
 var users = [];
-
-everyone.now.initiate = function (callback) {
-    var group = nowjs.getGroup("user-"+this.user.clientId);
-    group.addUser(this.user.clientId);
-
-    users[this.user.clientId] = group;
-    callback(this.user.clientId);
-};
-
-everyone.now.get_bio = function (callback) {
-    twit.updateProfile({skip_status: true}, function (data) {
-        callback(data.description);
-    });
-};
 
 // TODO: when users vanish do some cleaning up so as to not hold their group indefinitely
 
