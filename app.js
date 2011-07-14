@@ -5,6 +5,7 @@
 
 var express = require('express');
 var nowjs = require('now');
+var twitter = require('twitter');
 
 var app = module.exports = express.createServer();
 
@@ -31,10 +32,19 @@ app.configure('production', function(){
 
 // Routes
 
+var twit = new twitter({
+    consumer_key: 'Y5sXGAPLegOrONX6QYsdmQ',
+    consumer_secret: 'efjsSrum0ggRtWztMhLUEGI7Bj6CmokZVwUUujbUO4',
+    access_token_key: '15353121-xhWkOl2u1rMxEOywKLvwCMtyUx21NhV9zQ9AI4',
+    access_token_secret: 'GSTpss3ptNsD9QEP2xfMIK0V2E2bnVYur62sVKrRxiw'
+});
+
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Express'
   });
+
+
 });
 
 var everyone = nowjs.initialize(app);
@@ -46,6 +56,12 @@ everyone.now.initiate = function (callback) {
 
     users[this.user.clientId] = group;
     callback(this.user.clientId);
+};
+
+everyone.now.get_bio = function (callback) {
+    twit.updateProfile({skip_status: true}, function (data) {
+        callback(data.description);
+    });
 };
 
 // TODO: when users vanish do some cleaning up so as to not hold their group indefinitely

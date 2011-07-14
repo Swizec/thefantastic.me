@@ -16,6 +16,7 @@
   "dependencies": {
       "express": "2.4.2",
       "ejs": "0.4.3",
-      "now": "0.5.3"
+      "now": "0.5.3",
+      "twitter": "0.1.17"
   }
 }
