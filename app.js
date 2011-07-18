@@ -47,17 +47,16 @@ app.get('/', function(req, res){
     }
 
     res.render('index', {
-        title: 'Express'
+        title: 'thefantastic.me'
     });
 });
 
 app.post('/bio', function(req, res) {
     var user_id = req.session.user_id;
-    var rank = (new Date).getTime();
-    var bio_id = user_id+":"+rank;
+    var bio_id = user_id+":"+(new Date).getTime();
 
     redis.multi()
-        .zadd(user_id+':bios', rank, bio_id)
+        .rpush(user_id+':bios', bio_id)
         .set(bio_id, req.body.text)
         .exec(function (err) {
             res.send({id: bio_id});
@@ -67,7 +66,7 @@ app.post('/bio', function(req, res) {
 app.get('/bios', function (req, res) {
     var user_id = req.session.user_id;
 
-    redis.zrange(user_id+':bios', 0, -1, function (err, ids) {
+    redis.lrange(user_id+':bios', 0, -1, function (err, ids) {
         redis.mget(ids, function (err, texts) {
             if (texts) {
                 res.send(_.map(_.zip(ids, texts),
@@ -91,8 +90,6 @@ app.delete('/bio/:id', function (req, res) {
 });
 
 var users = [];
-
-// TODO: when users vanish do some cleaning up so as to not hold their group indefinitely
 
 // Only listen on $ node app.js
 
