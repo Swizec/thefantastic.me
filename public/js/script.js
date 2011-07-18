@@ -1,19 +1,42 @@
 $(function(){
+    $.timeago.settings.allowFuture = true;
+    $.timeago.settings.strings.prefixFromNow = "in";
+    $.timeago.settings.strings.suffixFromNow = "";
 });
 
 $(function () {
     var Bio = window.Bio = Backbone.Model.extend({
         url: function () {
             return (!this.id) ? '/bio' : '/bio/'+this.id;
+        },
+
+        initialize: function () {
+            _.bindAll(this, "set_time");
+
+            this.index = Bios.length;
+
+            this.set_time();
+        },
+
+        set_time: function () {
+            var time = (new Date((new Date).getTime()+
+                                 86400000*this.index));
+            this.attributes.time = [time.getUTCFullYear(),
+                                    time.getUTCMonth()+1,
+                                    time.getUTCDate()].join('-');
+            this.attributes.day = this.attributes.time;
+
+            if (this.index < 1) {
+                this.attributes.day = 'today';
+            }else if (this.index < 2) {
+                this.attributes.day = 'tomorrow';
+            }
         }
     });
 
     var BioList = window.BioList = Backbone.Collection.extend({
         model: Bio,
-        url: '/bios',
-
-        initialize: function () {
-        }
+        url: '/bios'
     });
 
     var Bios = window.Bios = new BioList;
@@ -35,6 +58,9 @@ $(function () {
         render: function () {
             var $el = $(this.el);
             $el.html(this.template.tmpl(this.model.toJSON()));
+            if (this.model.index >= 2) {
+                $el.find('.timeago').timeago();
+            }
 
             return $el;
         },
