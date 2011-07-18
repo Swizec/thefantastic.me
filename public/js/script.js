@@ -3,7 +3,9 @@ $(function(){
 
 $(function () {
     var Bio = window.Bio = Backbone.Model.extend({
-        url: '/bio'
+        url: function () {
+            return (!this.id) ? '/bio' : '/bio/'+this.id;
+        }
     });
 
     var BioList = window.BioList = Backbone.Collection.extend({
@@ -20,8 +22,12 @@ $(function () {
         tagname: "li",
         template: $("#bio-template"),
 
+        events: {
+            "click .remove": "remove"
+        },
+
         initialize: function () {
-            _.bindAll(this, "render");
+            _.bindAll(this, "render", "remove");
             this.model.bind('change', this.render);
             this.model.view = this;
         },
@@ -31,6 +37,12 @@ $(function () {
             $el.html(this.template.tmpl(this.model.toJSON()));
 
             return $el;
+        },
+
+        remove: function (event) {
+            event.preventDefault();
+
+            this.model.destroy();
         }
     });
 
@@ -46,6 +58,7 @@ $(function () {
 
             Bios.bind("add", this.add_bio);
             Bios.bind("reset", this.redraw);
+            Bios.bind("remove", this.redraw);
 
             Bios.fetch();
         },

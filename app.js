@@ -82,6 +82,14 @@ app.get('/bios', function (req, res) {
     });
 });
 
+app.delete('/bio/:id', function (req, res) {
+    var user_id = req.session.user_id;
+
+    redis.zrem(user_id+':bios', req.params.id, function (err) {
+        res.send('');
+    });
+});
+
 var users = [];
 
 // TODO: when users vanish do some cleaning up so as to not hold their group indefinitely
