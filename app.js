@@ -9,6 +9,8 @@ var twitter = require('twitter');
 var redis = require('redis').createClient();
 var _ = require('underscore');
 
+var users = require('./lib/users');
+
 var app = module.exports = express.createServer();
 
 // Configuration
@@ -43,7 +45,7 @@ var twit = new twitter({
 
 app.get('/', function(req, res){
     if (!req.session.user_id) {
-        req.session.user_id = (new Date).getTime();
+        req.session.user_id = users.create();
     }
 
     res.render('index', {
@@ -88,8 +90,6 @@ app.delete('/bio/:id', function (req, res) {
         res.send('');
     });
 });
-
-var users = [];
 
 // Only listen on $ node app.js
 
