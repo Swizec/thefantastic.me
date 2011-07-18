@@ -1,4 +1,5 @@
 
+
 /**
  * Module dependencies.
  */
@@ -41,25 +42,32 @@ var twit = new twitter({
 });
 
 app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
+    if (!req.session.user_id) {
+        req.session.user_id = (new Date).getTime();
+    }
+
+    res.render('index', {
+        title: 'Express'
+    });
 });
 
 app.post('/bio', function(req, res) {
-    var id = (new Date).getTime();
+    var user_id = req.session.user_id;
+    var rank = (new Date).getTime();
+    var bio_id = user_id+":"+rank;
 
     redis.multi()
-        .zadd('bios', id, id)
-        .set(id, req.body.text)
+        .zadd(user_id+':bios', rank, bio_id)
+        .set(bio_id, req.body.text)
         .exec(function (err) {
-            res.send('');
-            //res.send({id: id});
+            res.send({id: bio_id});
         });
 });
 
 app.get('/bios', function (req, res) {
-    redis.zrange('bios', 0, -1, function (err, ids) {
+    var user_id = req.session.user_id;
+
+    redis.zrange(user_id+':bios', 0, -1, function (err, ids) {
         redis.mget(ids, function (err, texts) {
             if (texts) {
                 res.send(_.map(_.zip(ids, texts),
