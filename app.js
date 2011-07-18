@@ -55,7 +55,7 @@ app.get('/', function(req, res){
 
 app.post('/bio', function(req, res) {
     var user_id = req.session.user_id;
-    var bio_id = user_id+":"+(new Date).getTime();
+    var bio_id = "bio:"+user_id+":"+(new Date).getTime();
 
     redis.multi()
         .rpush(user_id+':bios', bio_id)
@@ -86,7 +86,7 @@ app.get('/bios', function (req, res) {
 app.delete('/bio/:id', function (req, res) {
     var user_id = req.session.user_id;
 
-    redis.zrem(user_id+':bios', req.params.id, function (err) {
+    redis.lrem(user_id+':bios', req.params.id, function (err) {
         res.send('');
     });
 });
