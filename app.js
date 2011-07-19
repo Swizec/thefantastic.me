@@ -6,10 +6,15 @@
 
 var express = require('express');
 var twitter = require('twitter');
+var OAuth = require('oauth').OAuth;
 var redis = require('redis').createClient();
+var querystring = require('querystring');
+
+var RedisStore = require('connect-redis')(require('connect'));
 var _ = require('underscore');
 
 var users = require('./lib/users');
+var settings = require('./settings');
 
 var app = module.exports = express.createServer();
 
@@ -21,7 +26,8 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
+  app.use(express.session({ secret: 'your secret here',
+                            store: new RedisStore}));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
@@ -37,20 +43,78 @@ app.configure('production', function(){
 // Routes
 
 var twit = new twitter({
-    consumer_key: 'Y5sXGAPLegOrONX6QYsdmQ',
-    consumer_secret: 'efjsSrum0ggRtWztMhLUEGI7Bj6CmokZVwUUujbUO4',
+    consumer_key: settings.twitter_key,
+    consumer_secret: settings.twitter_secret,
     access_token_key: '15353121-xhWkOl2u1rMxEOywKLvwCMtyUx21NhV9zQ9AI4',
     access_token_secret: 'GSTpss3ptNsD9QEP2xfMIK0V2E2bnVYur62sVKrRxiw'
 });
 
-app.get('/', function(req, res){
+function require_twitter_login(req, res, next) {
+    if(!req.session.oauth_access_token) {
+	res.redirect("/twitter_login?action="+querystring.escape(req.originalUrl));
+	return;
+    }
+    next();
+};
+
+app.get('/', require_twitter_login, function(req, res){
     if (!req.session.user_id) {
-        req.session.user_id = users.create();
+        req.session.user_id = users.create({token: req.session.oauth_access_token,
+                                            token_secret: req.session.oauth_access_token_secret});
     }
 
     res.render('index', {
         title: 'thefantastic.me'
     });
+});
+
+app.get("/twitter_login", function (req, res) {
+    var oa = new OAuth("https://api.twitter.com/oauth/request_token",
+                       "https://api.twitter.com/oauth/access_token",
+                       settings.twitter_key,
+                       settings.twitter_secret,
+                       "1.0",
+                       "http://thefantastic.me/twitter_login/callback?userid="+req.query.userid,
+                       "HMAC-SHA1");
+    oa.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results) {
+        if (error) {
+            console.log('error twitter login');
+        }else{
+            req.session.oauth_token = oauth_token;
+            req.session.oauth_token_secret = oauth_token_secret;
+
+            res.redirect("https://api.twitter.com/oauth/authenticate?oauth_token="+oauth_token);
+        }
+    });
+});
+
+app.get('/twitter_login/callback', function (req, res) {
+    var oa = new OAuth("https://api.twitter.com/oauth/request_token",
+                       "https://api.twitter.com/oauth/access_token",
+                       settings.twitter_key,
+                       settings.twitter_secret,
+                       "1.0",
+                       "http://thefantastic.me/twitter_login/callback",
+                       "HMAC-SHA1");
+    oa.getOAuthAccessToken(
+        req.session.oauth_token,
+        req.session.oauth_token_secret,
+        req.param('oauth_verifier'),
+        function (error, oauth_access_token, oauth_access_token_secret, results2) {
+            if (error) {
+                console.log('error');
+                console.log(error);
+            }else{
+                req.session.oauth_access_token = oauth_access_token;
+                req.session.oauth_access_token_secret = oauth_access_token_secret;
+
+                if (req.param('action') && req.param('action') != '') {
+                    res.redirect(req.param('action'));
+                }else{
+                    res.redirect('/');
+                }
+            }
+        });
 });
 
 app.post('/bio', function(req, res) {
@@ -94,6 +158,6 @@ app.delete('/bio/:id', function (req, res) {
 // Only listen on $ node app.js
 
 if (!module.parent) {
-  app.listen(3000);
+  app.listen(80);
   console.log("Express server listening on port %d", app.address().port);
 }
