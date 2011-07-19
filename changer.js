@@ -16,7 +16,7 @@ var change = function (user_id) {
                     var twit = new twitter({
                         consumer_key: settings.twitter_key,
                         consumer_secret: settings.twitter_secret,
-                        access_token_key: user.token_key,
+                        access_token_key: user.token,
                         access_token_secret: user.token_secret
                     });
 

@@ -42,13 +42,6 @@ app.configure('production', function(){
 
 // Routes
 
-var twit = new twitter({
-    consumer_key: settings.twitter_key,
-    consumer_secret: settings.twitter_secret,
-    access_token_key: '15353121-xhWkOl2u1rMxEOywKLvwCMtyUx21NhV9zQ9AI4',
-    access_token_secret: 'GSTpss3ptNsD9QEP2xfMIK0V2E2bnVYur62sVKrRxiw'
-});
-
 function require_twitter_login(req, res, next) {
     if(!req.session.oauth_access_token) {
 	res.redirect("/twitter_login?action="+querystring.escape(req.originalUrl));
@@ -62,6 +55,26 @@ app.get('/', require_twitter_login, function(req, res){
         req.session.user_id = users.create({token: req.session.oauth_access_token,
                                             token_secret: req.session.oauth_access_token_secret});
     }
+
+    users.get(req.session.user_id, function (err, user) {
+        var twit = new twitter({
+            consumer_key: settings.twitter_key,
+            consumer_secret: settings.twitter_secret,
+            access_token_key: user.token,
+            access_token_secret: user.token_secret
+        });
+
+        twit.updateProfile({}, function (profile) {
+            var user_id = req.session.user_id;
+            var bio_id = "bio:"+user_id+":"+(new Date).getTime();
+
+            redis.multi()
+                .rpush(user_id+':bios', bio_id)
+                .set(bio_id, profile.description)
+                .exec(function (err) {
+                });
+        });
+    });
 
     res.render('index', {
         title: 'thefantastic.me'
