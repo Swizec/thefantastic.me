@@ -119,7 +119,15 @@ app.post('/login', function (req, res) {
 
     form.handle(req.body, {
         success: function (form) {
-            res.send({success: 'data'});
+            users.login(req.session.user_id, form.data, function (err, fresh) {
+                if (err) {
+                    res.send({error: 'fail'});
+                }else if (fresh) {
+                    res.redirect('/twitter_login');
+                }else{
+                    res.send({success: 'data'});
+                }
+            });
         },
         error: function (form) {
             res.send({error: 'fail'});
