@@ -9,6 +9,7 @@ var twitter = require('twitter');
 var OAuth = require('oauth').OAuth;
 var redis = require('redis').createClient();
 var querystring = require('querystring');
+var forms = require('forms');
 
 var RedisStore = require('connect-redis')(require('connect'));
 var _ = require('underscore');
@@ -108,6 +109,25 @@ app.get('/twitter_login/callback', function (req, res) {
                                  });
             }
         });
+});
+
+app.post('/login', function (req, res) {
+    var form = forms.create({
+        password: forms.fields.password({required: true}),
+        email: forms.fields.email({required: true})
+    });
+
+    form.handle(req.body, {
+        success: function (form) {
+            res.send({success: 'data'});
+        },
+        error: function (form) {
+            res.send({error: 'fail'});
+        },
+        empty: function (form) {
+            res.send({error: 'fail'});
+        }
+    });
 });
 
 app.post('/bio', function(req, res) {

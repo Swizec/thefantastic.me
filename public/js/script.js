@@ -76,7 +76,7 @@ $(function () {
         el: $("#main"),
 
         events: {
-            "submit form": "new_bio"
+            "submit form.add": "new_bio"
         },
 
         initialize: function () {
@@ -109,5 +109,35 @@ $(function () {
         }
     });
 
+    var LoginView = window.LoginView = Backbone.View.extend({
+        el: $("#login"),
+
+        events: {
+            "submit": "login"
+        },
+
+        initialize: function () {
+            _.bindAll(this, "login", "logged_in");
+        },
+
+        login: function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: $.param({email: this.$("input[type='text']").val(),
+                               password: this.$("input[type='password']").val()}),
+                success: this.logged_in,
+                error: this.logged_in});
+
+        },
+
+        logged_in: function (data) {
+            console.log(data);
+        }
+    });
+
     var App = window.App = new AppView;
+    var Login = window.Login = new LoginView;
 });
