@@ -9,6 +9,7 @@ var twitter = require('twitter');
 var OAuth = require('oauth').OAuth;
 var redis = require('redis').createClient();
 var querystring = require('querystring');
+var forms = require('forms');
 
 var RedisStore = require('connect-redis')(require('connect'));
 var _ = require('underscore');
@@ -50,31 +51,10 @@ function require_twitter_login(req, res, next) {
     next();
 };
 
-app.get('/', require_twitter_login, function(req, res){
+app.get('/', function(req, res){
     if (!req.session.user_id) {
-        req.session.user_id = users.create({token: req.session.oauth_access_token,
-                                            token_secret: req.session.oauth_access_token_secret});
+        req.session.user_id = users.create();
     }
-
-    users.get(req.session.user_id, function (err, user) {
-        var twit = new twitter({
-            consumer_key: settings.twitter_key,
-            consumer_secret: settings.twitter_secret,
-            access_token_key: user.token,
-            access_token_secret: user.token_secret
-        });
-
-        twit.updateProfile({}, function (profile) {
-            var user_id = req.session.user_id;
-            var bio_id = "bio:"+user_id+":"+(new Date).getTime();
-
-            redis.multi()
-                .rpush(user_id+':bios', bio_id)
-                .set(bio_id, profile.description)
-                .exec(function (err) {
-                });
-        });
-    });
 
     res.render('index', {
         title: 'thefantastic.me'
@@ -121,13 +101,44 @@ app.get('/twitter_login/callback', function (req, res) {
                 req.session.oauth_access_token = oauth_access_token;
                 req.session.oauth_access_token_secret = oauth_access_token_secret;
 
-                if (req.param('action') && req.param('action') != '') {
-                    res.redirect(req.param('action'));
-                }else{
-                    res.redirect('/');
-                }
+                users.add_twitter(req.session.user_id,
+                                  {token: oauth_access_token,
+                                   secret: oauth_access_token_secret},
+                                 function () {
+                                     res.redirect('/');
+                                 });
             }
         });
+});
+
+app.post('/login', function (req, res) {
+    var form = forms.create({
+        password: forms.fields.password({required: true}),
+        email: forms.fields.email({required: true})
+    });
+
+    form.handle(req.body, {
+        success: function (form) {
+            users.login(req.session.user_id, form.data, function (err, fresh, new_id) {
+                if (err) {
+                    res.send({error: err.name});
+                }else{
+                    if (new_id) {
+                        users.delete(req.session.user_id);
+                        req.session.user_id = new_id;
+                    }
+                    res.send({success: 'data',
+                              fresh: fresh});
+                }
+            });
+        },
+        error: function (form) {
+            res.send({error: 'fail'});
+        },
+        empty: function (form) {
+            res.send({error: 'fail'});
+        }
+    });
 });
 
 app.post('/bio', function(req, res) {

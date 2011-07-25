@@ -76,7 +76,7 @@ $(function () {
         el: $("#main"),
 
         events: {
-            "submit form": "new_bio"
+            "submit form.add": "new_bio"
         },
 
         initialize: function () {
@@ -109,5 +109,50 @@ $(function () {
         }
     });
 
+    var LoginView = window.LoginView = Backbone.View.extend({
+        el: $("#login"),
+
+        events: {
+            "submit": "login"
+        },
+
+        initialize: function () {
+            _.bindAll(this, "login", "logged_in", "twitter");
+        },
+
+        login: function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: $.param({email: this.$("input[type='text']").val(),
+                               password: this.$("input[type='password']").val()}),
+                success: this.logged_in,
+                error: function () {
+                    console.log("Error", arguments[1], arguments[2]);
+                }});
+
+        },
+
+        logged_in: function (data) {
+            this.$("input").hide();
+
+            if (data.fresh) {
+                this.twitter();
+            }else if (data.error) {
+                console.log("Bad login");
+            }else{
+                console.log("Logging in!");
+                Bios.fetch();
+            }
+        },
+
+        twitter: function () {
+            this.$("a").show();
+        }
+    });
+
     var App = window.App = new AppView;
+    var Login = window.Login = new LoginView;
 });
