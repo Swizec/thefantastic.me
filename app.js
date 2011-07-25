@@ -123,7 +123,9 @@ app.post('/login', function (req, res) {
                 if (err) {
                     res.send({error: err.name});
                 }else{
-                    req.session.user_id = new_id;
+                    if (new_id) {
+                        req.session.user_id = new_id;
+                    }
                     res.send({success: 'data',
                               fresh: fresh});
                 }
