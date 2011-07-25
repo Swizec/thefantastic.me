@@ -1,13 +1,18 @@
 
 <form class="add">
-<input type="text" placeholder="Add bio!" />
-<input type="submit" />
+      <input type="text" placeholder="+ Add a twitter bio!" />
+      <hr />
+      <!--<input type="submit" />-->
 </form>
 
-<ul></ul>
+<ul class="bios"></ul>
 
 <li id="bio-template" class="hidden">
-    <time class="timeago" datetime="${time}">${day}</time>::${text}::<a href="#" class="remove">remove</a>
+    <div>
+        <time class="timeago" datetime="${time}">${day}</time>
+        <a href="#" class="remove">remove</a>
+    </div>
+    <p>${text}<p>
 </li>
 
 

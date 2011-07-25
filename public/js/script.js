@@ -56,7 +56,7 @@ $(function () {
         },
 
         render: function () {
-            var $el = $(this.el);
+            var $el = $("<li></li>");
             $el.html(this.template.tmpl(this.model.toJSON()));
             if (this.model.index >= 2) {
                 $el.find('.timeago').timeago();
