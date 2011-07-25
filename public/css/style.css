@@ -162,13 +162,17 @@ header div {
   border-bottom: 1px solid black;
   width: 100%;
   display: block;
+}
+
+.bios li div time {
+  display: inline-block;
   padding-left: 20px;
 }
 
 .bios li div a {
   display: inline-block;
   float: right;
-  margin-right: 40px
+  padding-right: 20px
 }
 
 .bios li p {
