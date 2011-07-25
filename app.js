@@ -119,10 +119,11 @@ app.post('/login', function (req, res) {
 
     form.handle(req.body, {
         success: function (form) {
-            users.login(req.session.user_id, form.data, function (err, fresh) {
+            users.login(req.session.user_id, form.data, function (err, fresh, new_id) {
                 if (err) {
-                    res.send({error: 'fail'});
+                    res.send({error: err.name});
                 }else{
+                    req.session.user_id = new_id;
                     res.send({success: 'data',
                               fresh: fresh});
                 }

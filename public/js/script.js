@@ -140,7 +140,10 @@ $(function () {
 
             if (data.fresh) {
                 this.twitter();
+            }else if (data.error) {
+                console.log("Bad login");
             }else{
+                console.log("Logging in!");
                 Bios.fetch();
             }
         },
