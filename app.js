@@ -129,11 +129,9 @@ app.post('/login', function (req, res) {
             });
         },
         error: function (form) {
-            console.log("erroring");
             res.send({error: 'fail'});
         },
         empty: function (form) {
-            console.log("emptying");
             res.send({error: 'fail'});
         }
     });
