@@ -117,7 +117,7 @@ $(function () {
         },
 
         initialize: function () {
-            _.bindAll(this, "login", "logged_in");
+            _.bindAll(this, "login", "logged_in", "twitter");
         },
 
         login: function (event) {
@@ -129,12 +129,24 @@ $(function () {
                 data: $.param({email: this.$("input[type='text']").val(),
                                password: this.$("input[type='password']").val()}),
                 success: this.logged_in,
-                error: this.logged_in});
+                error: function () {
+                    console.log("Error", arguments[1], arguments[2]);
+                }});
 
         },
 
         logged_in: function (data) {
-            console.log(data);
+            this.$("input").hide();
+
+            if (data.fresh) {
+                this.twitter();
+            }else{
+                Bios.fetch();
+            }
+        },
+
+        twitter: function () {
+            this.$("a").show();
         }
     });
 
