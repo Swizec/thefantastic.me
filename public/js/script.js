@@ -42,7 +42,7 @@ $(function () {
     var Bios = window.Bios = new BioList;
 
     var BioView = window.BioView = Backbone.View.extend({
-        tagname: "li",
+        tagName: "li",
         template: $("#bio-template"),
 
         events: {
@@ -56,7 +56,7 @@ $(function () {
         },
 
         render: function () {
-            var $el = $("<li></li>");
+            var $el = $(this.el);
             $el.html(this.template.tmpl(this.model.toJSON()));
             if (this.model.index >= 2) {
                 $el.find('.timeago').timeago();
