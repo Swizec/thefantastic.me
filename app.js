@@ -124,6 +124,7 @@ app.post('/login', function (req, res) {
                     res.send({error: err.name});
                 }else{
                     if (new_id) {
+                        users.delete(req.session.user_id);
                         req.session.user_id = new_id;
                     }
                     res.send({success: 'data',
