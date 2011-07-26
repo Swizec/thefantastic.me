@@ -145,11 +145,13 @@ header div {
   -webkit-border-radius: 6px;
   border: 1px solid #2c2d28;
   background: #e7e7e5;
-  opacity: 0.8;
   width: 500px;
   margin: 0 auto;
   margin-bottom: 1em;
   padding-bottom: 1em;
+  -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  background: rgba(255,255,255,0.85);
 }
 
 .bios li * {
