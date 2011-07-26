@@ -182,7 +182,55 @@ header div {
   padding-top: 5px;
 }
 
+/* shamelessly borrowed styling from http://tomorrow.do/ */
 
+#login input {
+  font-family:Baskerville, Georgia;
+  background:rgba(0,0,0,0.6);
+  border-radius:5px;
+  padding:5px;
+  width:170px;
+  border:0px;
+  font-size:12pt;
+  outline:0; color:#edd;
+  padding-left:10px; padding-right:10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px;
+  display: block;
+  margin: 5px;
+}
+
+#login input[type=submit] {
+   -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+
+   background-image:-webkit-gradient(linear, left top, left bottom, from(#D0D560), to(#ACCA34));
+   background-image:-webkit-linear-gradient(top, #d0d560, #acca34);
+   background-image:-moz-linear-gradient(top, #d0d560, #acca34);
+
+   font-family:Airplanes;
+   border: 1px solid rgba(110, 133, 20, 0.792969);
+   border-radius:5px;
+   height:42px; width:190px; font-size:20px;
+   display:block; text-align:center;
+   line-height:31px;
+   text-shadow:0 1px rgba(255,255,255,0.5);
+   margin-top:5px; overflow:hidden;
+   cursor:pointer; position:absolute;
+   color: black;
+}
+
+#login input[type=submit]:hover {
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#E0E570), to(#BCDA44));
+    background-image:-webkit-linear-gradient(top, #E0E570, #BCDA44);
+    background-image:-moz-linear-gradient(top, #E0E570, #BCDA44);
+}
+
+#login input[type=submit]:active {
+    background-image:-webkit-gradient(linear, left bottom, left top, from(#D0D560), to(#ACCA34));
+    background-image:-webkit-linear-gradient(bottom, #d0d560, #acca34);
+    background-image:-moz-linear-gradient(bottom, #d0d560, #acca34);
+}
 
 
 
