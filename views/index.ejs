@@ -5,16 +5,8 @@
       <!--<input type="submit" />-->
 </form>
 
+<div id="horizontal">
 <ul class="bios"></ul>
-
-<li id="bio-template" class="hidden">
-    <div>
-        <time class="timeago" datetime="${time}">${day}</time>
-        <a href="#" class="remove">remove</a>
-    </div>
-    <p>${text}<p>
-</li>
-
 
 <form id="login">
       <input type="text" placeholder="Email" />
@@ -23,3 +15,12 @@
 
       <a href="/twitter_login">Add twitter!<br/><img src="/images/sign-in-with-twitter-l.png" /></a>
 </form>
+</div>
+
+<li id="bio-template" class="hidden">
+    <div>
+        <time class="timeago" datetime="${time}">${day}</time>
+        <a href="#" class="remove">remove</a>
+    </div>
+    <p>${text}<p>
+</li>

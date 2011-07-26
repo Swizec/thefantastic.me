@@ -237,8 +237,8 @@ header div {
 #login {
   width: 200px;
   height: 200px;
-  position: absolute;
-  left: 800px;
+  margin-top: 150px;
+  margin-left: 30px;
 }
 
 #login * {
@@ -286,6 +286,15 @@ header div {
   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
 }
 
+#horizontal {
+    display: -webkit-box !important;
+    -webkit-box-orient: horizontal;
+    display: -moz-box !important;
+    -moz-box-orient: horizontal;
+    display: box !important;
+    box-orient: horizontal;
+    padding-left: 120px;
+}
 
 
 
