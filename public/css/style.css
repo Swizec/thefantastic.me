@@ -232,6 +232,57 @@ header div {
     background-image:-moz-linear-gradient(bottom, #d0d560, #acca34);
 }
 
+#login {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 800px;
+}
+
+#login * {
+  position: absolute;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#login.logging_in input[type=text] {
+  top: 60px;
+}
+
+#login.logging_in input[type=password] {
+  top: 95px;
+}
+
+#login.twitter input[type=text],
+#login.twitter input[type=password] {
+  left: -2000px;
+}
+
+#login a {
+  position: absolute;
+  left: 2000px;
+}
+
+#login.twitter a {
+  left: 0px;
+  display: block;
+  top: 60px;
+  width: 180px;
+  text-align: center;
+  color: white;
+  font-family: Airplanes;
+  font-size: 13pt;
+  text-decoration: none;
+}
+
+#login.twitter a img {
+  left: 20px;
+  margin-top: 6px;
+  -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+}
 
 
 

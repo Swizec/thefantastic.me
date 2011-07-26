@@ -112,16 +112,23 @@ $(function () {
     var LoginView = window.LoginView = Backbone.View.extend({
         el: $("#login"),
 
+        state: 0,
+
         events: {
-            "submit": "login"
+            "submit": "login",
+            "click .submit": "open"
         },
 
         initialize: function () {
-            _.bindAll(this, "login", "logged_in", "twitter");
+            _.bindAll(this, "login", "logged_in", "twitter", "open");
         },
 
         login: function (event) {
             event.preventDefault();
+
+            if (this.state == 0) {
+                return;
+            }
 
             $.ajax({
                 type: 'POST',
@@ -136,8 +143,6 @@ $(function () {
         },
 
         logged_in: function (data) {
-            this.$("input").hide();
-
             if (data.fresh) {
                 this.twitter();
             }else if (data.error) {
@@ -149,7 +154,16 @@ $(function () {
         },
 
         twitter: function () {
-            this.$("a").show();
+            this.el.addClass("twitter");
+        },
+
+        open: function (event) {
+            if (this.state < 1) {
+                event.preventDefault();
+
+                this.el.addClass("logging_in");
+                this.state = 1;
+            }
         }
     });
 
