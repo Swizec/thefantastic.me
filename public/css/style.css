@@ -336,6 +336,16 @@ header div {
   padding-left: 50px;
 }
 
+footer {
+  color: white;
+  font-size: 0.8em;
+  font-family: Helvetica;
+  padding: 3px;
+  position: absolute;
+  bottom: 10px;
+  padding-left: 15px;
+}
+
 
 
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
