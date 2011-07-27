@@ -100,6 +100,8 @@ $(function () {
             var bio = new Bio({text: this.$("form input[type='text']").val()});
             bio.save();
 
+            this.$(".add input").val("");
+
             Bios.add(bio);
         },
 
@@ -154,7 +156,11 @@ $(function () {
         },
 
         twitter: function () {
-            this.el.addClass("twitter");
+            this.el.find('a').css("display", "block");
+            var self = this;
+            setTimeout(function () {
+                self.el.addClass("twitter");
+            }, 300);
         },
 
         open: function (event) {

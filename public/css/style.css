@@ -139,6 +139,10 @@ header div {
   border-color: white;
 }
 
+.bios {
+  width: 500px;
+}
+
 .bios li {
   border-radius: 6px;
   -moz-border-radius: 6px;
@@ -239,6 +243,7 @@ header div {
   height: 200px;
   margin-top: 150px;
   margin-left: 30px;
+  position: absolute;
 }
 
 #login * {
@@ -247,6 +252,10 @@ header div {
   -webkit-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+
+#login a {
+  display: none;
 }
 
 #login.logging_in input[type=text] {
@@ -296,6 +305,36 @@ header div {
     padding-left: 120px;
 }
 
+#explain {
+  position: absolute;
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  line-height: 1.5em;
+  width: 360px;
+  height: 210px;
+  background: url('/images/arrow_big.png') no-repeat top right;
+  margin-left: -320px;
+  padding-top: 30px;
+}
+
+#explain .fill {
+  left: 15px;
+  margin-top: 60px;
+}
+
+#login p {
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  text-align: right;
+  margin-top: -130px;
+  margin-left: 60px;
+  background: url('/images/arrow_small.png') no-repeat 0px 30px;
+  height: 150px;
+  width: 150px;
+  padding-left: 50px;
+}
 
 
 
