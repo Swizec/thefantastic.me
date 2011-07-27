@@ -174,7 +174,7 @@ app.get('/bios', function (req, res) {
 app.delete('/bio/:id', function (req, res) {
     var user_id = req.session.user_id;
 
-    redis.lrem(user_id+':bios', req.params.id, function (err) {
+    redis.lrem(user_id+':bios', 0, req.params.id, function (err) {
         res.send('');
     });
 });

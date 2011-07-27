@@ -11,7 +11,7 @@ $(function () {
         },
 
         initialize: function () {
-            _.bindAll(this, "set_time");
+            _.bindAll(this, "set_time", "remove");
 
             this.index = Bios.length;
 
@@ -31,6 +31,11 @@ $(function () {
             }else if (this.index < 2) {
                 this.attributes.day = 'tomorrow';
             }
+        },
+
+        remove: function () {
+            this.destroy();
+            //this.view.remove();
         }
     });
 
@@ -46,11 +51,11 @@ $(function () {
         template: $("#bio-template"),
 
         events: {
-            "click .remove": "remove"
+            "click .remove": "remove_clicked"
         },
 
         initialize: function () {
-            _.bindAll(this, "render", "remove");
+            _.bindAll(this, "render", "remove_clicked");
             this.model.bind('change', this.render);
             this.model.view = this;
         },
@@ -65,10 +70,9 @@ $(function () {
             return $el;
         },
 
-        remove: function (event) {
-            event.preventDefault();
-
-            this.model.destroy();
+        remove_clicked: function (event) {
+            this.remove();
+            this.model.remove();
         }
     });
 
@@ -84,7 +88,7 @@ $(function () {
 
             Bios.bind("add", this.add_bio);
             Bios.bind("reset", this.redraw);
-            Bios.bind("remove", this.redraw);
+            //Bios.bind("remove", this.redraw);
 
             Bios.fetch();
         },
