@@ -2,6 +2,20 @@ $(function(){
     $.timeago.settings.allowFuture = true;
     $.timeago.settings.strings.prefixFromNow = "in";
     $.timeago.settings.strings.suffixFromNow = "";
+
+    try {
+        window.mpmetrics = new MixpanelLib("445e7c07115ce5fa0c0a95e16d9bef2e");
+    } catch(err) {
+        var null_fn = function () {};
+        window.mpmetrics = {
+            track: null_fn,
+            track_funnel: null_fn,
+            register: null_fn,
+            register_once: null_fn,
+            register_funnel: null_fn,
+            identify: null_fn
+        };
+    }
 });
 
 $(function () {
@@ -101,6 +115,8 @@ $(function () {
         new_bio: function (event) {
             event.preventDefault();
 
+            mpmetrics.track("New bio");
+
             var bio = new Bio({text: this.$("form input[type='text']").val()});
             bio.save();
 
@@ -152,15 +168,16 @@ $(function () {
             if (data.fresh) {
                 this.twitter();
             }else if (data.error) {
-                console.log("Bad login");
             }else{
-                console.log("Logging in!");
+                mpmetrics.track("Logged in");
                 Bios.fetch();
             }
         },
 
         twitter: function () {
             this.el.find('a').css("display", "block");
+            mpmetrics.track_links(this.el.find('a'), "Clicked twitter");
+
             var self = this;
             setTimeout(function () {
                 self.el.addClass("twitter");
@@ -169,6 +186,8 @@ $(function () {
 
         open: function (event) {
             if (this.state < 1) {
+                mpmetrics.track("Opened login");
+
                 event.preventDefault();
 
                 this.el.addClass("logging_in");
