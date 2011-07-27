@@ -7,6 +7,8 @@ var settings = require('./settings');
 
 var users = require('./lib/users');
 
+redis.select(settings.db);
+
 var change = function (user_id) {
     users.get(user_id, function (err, user) {
         redis.lindex(user_id+":bios", user.index, function (err, bio_id) {
@@ -38,6 +40,6 @@ var change_all = function () {
 };
 
 if (!module.parent) {
-//    setInterval(change_all, 86400000); // once a day
-    change_all();
+    setInterval(change_all, 86400000); // once a day
+//    change_all();
 }
