@@ -1,20 +1,38 @@
 
 <form class="add">
-<input type="text" placeholder="Add bio!" />
-<input type="submit" />
+      <input type="text" placeholder="+ Add a twitter bio!" />
+      <hr />
+      <!--<input type="submit" />-->
 </form>
 
-<ul></ul>
+<div id="horizontal">
+<div id="explain">
+    <p>Long twitter bios suck!</p>
+    <p>Keep yours short,</p>
+    <p>we'll change it for you every day</p>
+    <p class="fill">Just fill the buffer! :)</p>
+</div>
 
-<li id="bio-template" class="hidden">
-    <time class="timeago" datetime="${time}">${day}</time>::${text}::<a href="#" class="remove">remove</a>
-</li>
 
+   <ul class="bios">
+   </ul>
 
-<form id="login">
+   <form id="login">
+      <p class="explain">This button<br/> lets you<br/> login or register</p>
+
       <input type="text" placeholder="Email" />
       <input type="password" placeholder="Password" />
-      <input type="submit" />
+      <input type="submit" value="Be fantastic!" class="submit" />
 
-      <a href="/twitter_login" style="display: none"><img src="/images/sign-in-with-twitter-l.png" /></a>
-</form>
+      <a href="/twitter_login">Add twitter!<br/><img src="/images/sign-in-with-twitter-l.png" /></a>
+   </form>
+
+</div>
+
+<li id="bio-template" class="hidden">
+    <div>
+        <time class="timeago" datetime="${time}">${day}</time>
+        <a href="#" class="remove">remove</a>
+    </div>
+    <p>${text}<p>
+</li>

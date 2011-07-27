@@ -86,16 +86,265 @@ a:hover { color: #036; }
     \\ ========================================== //
 */
 
+@font-face { font-family: Celeste; src: url('/fonts/Celeste-Hand.ttf'); }
+@font-face { font-family: Airplanes; src: url('/fonts/Airplanes-in-the Night-Sky.ttf'); }
+@font-face { font-family: Helvetica; src: url('/fonts/HelveticaNeue-Medium.ttf'); }
 
+body {
+    background: url('/images/background.jpg');
+}
 
+#main {
+    margin: 0 auto;
+    width: 800px;
+}
 
+header {
+    font-family: Celeste;
+    font-size: 60pt;
+    color: white;
+    text-align: center;
+}
 
+header small {
+    font-size: 30pt;
+}
 
+header div {
+    font-size: 25pt;
+    margin-top: -25px;
+    margin-bottom: 10px;
+}
 
+.add {
+  text-align: center;
+  margin-bottom: 1em;
+}
 
+.add input[type='text'] {
+  font-size: 2.2em;
+  font-family: Airplanes;
+  width: 400px;
+  background: transparent;
+  color: white;
+  outline: 0;
+  border: none;
+}
 
+.add hr {
+  width: 450px;
+  margin: 0 auto;
+  position: relative;
+  top: -15px;
+  border-color: white;
+}
 
+.bios {
+  width: 500px;
+}
 
+.bios li {
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border: 1px solid #2c2d28;
+  background: #e7e7e5;
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  background: rgba(255,255,255,0.85);
+}
+
+.bios li * {
+  opacity: 1.0;
+}
+
+.bios li div {
+  font-family: Helvetica;
+  font-size: 1.4em;
+  border-bottom: 1px solid black;
+  width: 100%;
+  display: block;
+}
+
+.bios li div time {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+.bios li div a {
+  display: inline-block;
+  float: right;
+  padding-right: 20px
+}
+
+.bios li p {
+  font-family: Airplanes;
+  font-size: 2em;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+/* shamelessly borrowed styling from http://tomorrow.do/ */
+
+#login input {
+  font-family:Baskerville, Georgia;
+  background:rgba(0,0,0,0.6);
+  border-radius:5px;
+  padding:5px;
+  width:170px;
+  border:0px;
+  font-size:12pt;
+  outline:0; color:#edd;
+  padding-left:10px; padding-right:10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px;
+  display: block;
+  margin: 5px;
+}
+
+#login input[type=submit] {
+   -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+
+   background-image:-webkit-gradient(linear, left top, left bottom, from(#D0D560), to(#ACCA34));
+   background-image:-webkit-linear-gradient(top, #d0d560, #acca34);
+   background-image:-moz-linear-gradient(top, #d0d560, #acca34);
+
+   font-family:Airplanes;
+   border: 1px solid rgba(110, 133, 20, 0.792969);
+   border-radius:5px;
+   height:42px; width:190px; font-size:20px;
+   display:block; text-align:center;
+   line-height:31px;
+   text-shadow:0 1px rgba(255,255,255,0.5);
+   margin-top:5px; overflow:hidden;
+   cursor:pointer; position:absolute;
+   color: black;
+}
+
+#login input[type=submit]:hover {
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#E0E570), to(#BCDA44));
+    background-image:-webkit-linear-gradient(top, #E0E570, #BCDA44);
+    background-image:-moz-linear-gradient(top, #E0E570, #BCDA44);
+}
+
+#login input[type=submit]:active {
+    background-image:-webkit-gradient(linear, left bottom, left top, from(#D0D560), to(#ACCA34));
+    background-image:-webkit-linear-gradient(bottom, #d0d560, #acca34);
+    background-image:-moz-linear-gradient(bottom, #d0d560, #acca34);
+}
+
+#login {
+  width: 200px;
+  height: 200px;
+  margin-top: 150px;
+  margin-left: 30px;
+  position: absolute;
+}
+
+#login * {
+  position: absolute;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+#login a {
+  display: none;
+}
+
+#login.logging_in input[type=text] {
+  top: 60px;
+}
+
+#login.logging_in input[type=password] {
+  top: 95px;
+}
+
+#login.twitter input[type=text],
+#login.twitter input[type=password] {
+  left: -2000px;
+}
+
+#login a {
+  position: absolute;
+  left: 2000px;
+}
+
+#login.twitter a {
+  left: 0px;
+  display: block;
+  top: 60px;
+  width: 180px;
+  text-align: center;
+  color: white;
+  font-family: Airplanes;
+  font-size: 13pt;
+  text-decoration: none;
+}
+
+#login.twitter a img {
+  left: 20px;
+  margin-top: 6px;
+  -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+  -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
+}
+
+#horizontal {
+    display: -webkit-box !important;
+    -webkit-box-orient: horizontal;
+    display: -moz-box !important;
+    -moz-box-orient: horizontal;
+    display: box !important;
+    box-orient: horizontal;
+    padding-left: 120px;
+}
+
+#explain {
+  position: absolute;
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  line-height: 1.5em;
+  width: 360px;
+  height: 210px;
+  background: url('/images/arrow_big.png') no-repeat top right;
+  margin-left: -320px;
+  padding-top: 30px;
+}
+
+#explain .fill {
+  left: 15px;
+  margin-top: 60px;
+}
+
+#login p {
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  text-align: right;
+  margin-top: -130px;
+  margin-left: 60px;
+  background: url('/images/arrow_small.png') no-repeat 0px 30px;
+  height: 150px;
+  width: 150px;
+  padding-left: 50px;
+}
+
+footer {
+  color: white;
+  font-size: 0.8em;
+  font-family: Helvetica;
+  padding: 3px;
+  position: absolute;
+  bottom: 10px;
+  padding-left: 15px;
+}
 
 
 
