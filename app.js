@@ -19,6 +19,8 @@ var settings = require('./settings');
 
 var app = module.exports = express.createServer();
 
+redis.select(settings.db);
+
 // Configuration
 
 app.configure(function(){
