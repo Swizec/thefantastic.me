@@ -40,6 +40,6 @@ var change_all = function () {
 };
 
 if (!module.parent) {
-    setInterval(change_all, 86400000); // once a day
-//    change_all();
+    //setInterval(change_all, 86400000); // once a day
+    change_all();
 }
