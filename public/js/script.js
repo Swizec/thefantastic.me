@@ -16,6 +16,21 @@ $(function(){
             identify: null_fn
         };
     }
+
+    var hour = (new Date).getHours()+(new Date).getMinutes()/60;
+    var timeOfDay = 'evening';
+
+    if (hour >= 22.0 || hour < 5.0) {
+        timeOfDay = 'nighttime';
+    }else if (hour >= 5.0 && hour < 8.0) {
+        timeOfDay = 'morning';
+    }else if (hour >= 8.0 && hour < 7.0) {
+        timeOfDay = 'daytime';
+    }
+
+    var background = '/images/background/'+timeOfDay+'/'+(Math.floor(Math.random()*10%3))+'.jpg';
+
+    $("body").css("background", 'url("'+background+'") top center no-repeat');
 });
 
 $(function () {

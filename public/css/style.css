@@ -91,7 +91,7 @@ a:hover { color: #036; }
 @font-face { font-family: Helvetica; src: url('/fonts/HelveticaNeue-Medium.ttf'); }
 
 body {
-    background: url('/images/background.jpg') top center no-repeat;
+    /*background: url('/images/background.jpg') top center no-repeat;*/
     background-attachement: fixed;
 }
 
