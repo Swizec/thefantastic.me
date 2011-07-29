@@ -134,6 +134,17 @@ header div {
   border: none;
 }
 
+.add input:hover, .add input:focus {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding-left: 30px;
+  margin-left: -30px;
+  padding-right: 40px;
+  margin-right: -40px;
+}
+
 .add hr {
   width: 450px;
   margin: 0 auto;
@@ -145,17 +156,15 @@ header div {
 .bios {
   width: 500px;
   box-flex: 2;
-  border: 1px solid yellow;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .bios li {
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border: 1px solid #2c2d28;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   background: #e7e7e5;
   width: 500px;
   margin-bottom: 1em;
@@ -195,6 +204,20 @@ header div {
   width: 200px;
   height: 200px;
   box-flex: 1;
+  margin-left: 25px;
+}
+
+#login p {
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  text-align: right;
+  background: url('/images/arrow_small.png') no-repeat 0px 30px;
+  height: 150px;
+  width: 150px;
+  padding-left: 50px;
+  margin-left: 40px;
+  margin-bottom: -15px;
 }
 
 #login * {
@@ -255,18 +278,6 @@ header div {
     background-image:-moz-linear-gradient(bottom, #d0d560, #acca34);
 }
 
-#login p {
-  color: white;
-  font-family: Airplanes;
-  font-size: 15pt;
-  text-align: right;
-  background: url('/images/arrow_small.png') no-repeat 0px 30px;
-  height: 150px;
-  width: 150px;
-  padding-left: 50px;
-  margin-left: 40px;
-}
-
 #login a {
   display: none;
   left: 2000px;
@@ -318,7 +329,6 @@ header div {
     box-orient: horizontal;
     box-pack: center;
     width: 100%;
-    border: 1px solid green;
 }
 
 #explain {
@@ -332,7 +342,7 @@ header div {
   padding-top: 30px;
   box-flex: 1;
   margin-left: -120px;
-  border: 1px solid purple;
+  margin-top: -50px;
 }
 
 #explain .fill {
