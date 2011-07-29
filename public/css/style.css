@@ -91,7 +91,8 @@ a:hover { color: #036; }
 @font-face { font-family: Helvetica; src: url('/fonts/HelveticaNeue-Medium.ttf'); }
 
 body {
-    background: url('/images/background.jpg');
+    background: url('/images/background.jpg') top center no-repeat;
+    background-attachement: fixed;
 }
 
 #main {
@@ -104,6 +105,8 @@ header {
     font-size: 60pt;
     color: white;
     text-align: center;
+    width: 1060px;
+    margin: 0 auto;
 }
 
 header small {
@@ -143,6 +146,9 @@ header div {
   width: 500px;
   box-flex: 2;
   border: 1px solid yellow;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .bios li {
@@ -301,7 +307,6 @@ header div {
   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
 }
 
-
 #horizontal {
     display: -webkit-box !important;
     -webkit-box-orient: horizontal;
@@ -326,6 +331,7 @@ header div {
   background: url('/images/arrow_big.png') no-repeat top right;
   padding-top: 30px;
   box-flex: 1;
+  margin-left: -120px;
   border: 1px solid purple;
 }
 
