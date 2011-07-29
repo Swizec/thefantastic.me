@@ -30,7 +30,7 @@ $(function(){
 
     var background = '/images/background/'+timeOfDay+'/'+(Math.floor(Math.random()*10%3))+'.jpg';
 
-    $("body").css("background", 'url("'+background+'") top center no-repeat');
+    $("body").css("background", '#878787 url("'+background+'") top center no-repeat');
 });
 
 $(function () {

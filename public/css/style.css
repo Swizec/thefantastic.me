@@ -92,6 +92,7 @@ a:hover { color: #036; }
 
 body {
     /*background: url('/images/background.jpg') top center no-repeat;*/
+    background-color: #4d4d4d;
     background-attachement: fixed;
 }
 
