@@ -96,7 +96,7 @@ body {
 
 #main {
     margin: 0 auto;
-    width: 800px;
+    width: 1060px;
 }
 
 header {
@@ -141,6 +141,8 @@ header div {
 
 .bios {
   width: 500px;
+  box-flex: 2;
+  border: 1px solid yellow;
 }
 
 .bios li {
@@ -150,16 +152,11 @@ header div {
   border: 1px solid #2c2d28;
   background: #e7e7e5;
   width: 500px;
-  margin: 0 auto;
   margin-bottom: 1em;
   padding-bottom: 1em;
   -webkit-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
   background: rgba(255,255,255,0.85);
-}
-
-.bios li * {
-  opacity: 1.0;
 }
 
 .bios li div {
@@ -188,7 +185,20 @@ header div {
   padding-top: 5px;
 }
 
-/* shamelessly borrowed styling from http://tomorrow.do/ */
+#login {
+  width: 200px;
+  height: 200px;
+  box-flex: 1;
+}
+
+#login * {
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+/* shamelessly borrowed input styling from http://tomorrow.do/ */
 
 #login input {
   font-family:Baskerville, Georgia;
@@ -204,6 +214,7 @@ header div {
   -moz-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px;
   display: block;
   margin: 5px;
+  position: absolute;
 }
 
 #login input[type=submit] {
@@ -238,54 +249,49 @@ header div {
     background-image:-moz-linear-gradient(bottom, #d0d560, #acca34);
 }
 
-#login {
-  width: 200px;
-  height: 200px;
-  margin-top: 150px;
-  margin-left: 30px;
-  position: absolute;
-}
-
-#login * {
-  position: absolute;
-  -moz-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+#login p {
+  color: white;
+  font-family: Airplanes;
+  font-size: 15pt;
+  text-align: right;
+  background: url('/images/arrow_small.png') no-repeat 0px 30px;
+  height: 150px;
+  width: 150px;
+  padding-left: 50px;
+  margin-left: 40px;
 }
 
 #login a {
   display: none;
+  left: 2000px;
+  position: absolute;
 }
 
 #login.logging_in input[type=text] {
-  top: 60px;
+  margin-top: 60px;
 }
 
 #login.logging_in input[type=password] {
-  top: 95px;
+  margin-top: 95px;
 }
 
 #login.twitter input[type=text],
 #login.twitter input[type=password] {
+  position: absolute;
   left: -2000px;
 }
 
-#login a {
-  position: absolute;
-  left: 2000px;
-}
-
 #login.twitter a {
-  left: 0px;
   display: block;
-  top: 60px;
   width: 180px;
   text-align: center;
   color: white;
   font-family: Airplanes;
   font-size: 13pt;
   text-decoration: none;
+  margin-top: 60px;
+  position: relative;
+  left: 0px;
 }
 
 #login.twitter a img {
@@ -295,18 +301,22 @@ header div {
   -moz-box-shadow:rgba(0,0,0,0.5) 1px 3px 3px 1px;
 }
 
+
 #horizontal {
     display: -webkit-box !important;
     -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
     display: -moz-box !important;
     -moz-box-orient: horizontal;
+    -moz-box-pack: center;
     display: box !important;
     box-orient: horizontal;
-    padding-left: 120px;
+    box-pack: center;
+    width: 100%;
+    border: 1px solid green;
 }
 
 #explain {
-  position: absolute;
   color: white;
   font-family: Airplanes;
   font-size: 15pt;
@@ -314,8 +324,9 @@ header div {
   width: 360px;
   height: 210px;
   background: url('/images/arrow_big.png') no-repeat top right;
-  margin-left: -320px;
   padding-top: 30px;
+  box-flex: 1;
+  border: 1px solid purple;
 }
 
 #explain .fill {
@@ -323,25 +334,12 @@ header div {
   margin-top: 60px;
 }
 
-#login p {
-  color: white;
-  font-family: Airplanes;
-  font-size: 15pt;
-  text-align: right;
-  margin-top: -130px;
-  margin-left: 60px;
-  background: url('/images/arrow_small.png') no-repeat 0px 30px;
-  height: 150px;
-  width: 150px;
-  padding-left: 50px;
-}
-
 footer {
   color: white;
   font-size: 0.8em;
   font-family: Helvetica;
   padding: 3px;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   padding-left: 15px;
 }
