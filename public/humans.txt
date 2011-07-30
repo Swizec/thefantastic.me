@@ -11,20 +11,6 @@
 /* THANKS */
   Names (& URL):
 
-/* BACKGROUND IMAGES FROM */
-http://www.flickr.com/photos/revdancatt/1074738075/sizes/o/in/photostream/
-http://www.flickr.com/photos/dexxus/4714207610/sizes/l/in/photostream/
-http://www.flickr.com/photos/ecstaticist/4445205796/sizes/o/in/photostream/
-http://www.flickr.com/photos/garry61/3343188281/sizes/o/in/photostream/
-http://www.flickr.com/photos/stewiedewie/93752087/sizes/o/in/photostream/
-http://www.flickr.com/photos/peasap/676142105/sizes/z/in/photostream/
-http://www.flickr.com/photos/captainkimo/5007388474/sizes/o/in/photostream/
-http://www.flickr.com/photos/pagedooley/3440777335/sizes/o/in/photostream/
-http://www.flickr.com/photos/ecstaticist/3751068291/sizes/o/in/photostream/
-http://www.flickr.com/photos/acmace/4590415871/sizes/o/in/photostream/
-http://www.flickr.com/photos/michaelholden/4035684306/sizes/o/in/photostream/
-http://www.flickr.com/photos/joseiserncomas/2232202589/sizes/o/in/photostream/
-http://www.flickr.com/photos/shebalso/5976895317/sizes/o/in/photostream/
 
 /* SITE */
   Standards: HTML5, CSS3
